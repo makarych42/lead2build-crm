@@ -66,7 +66,7 @@ export default function VotingManager() {
           requiredVotes: formData.requiredVotes,
           currentVotes: 0,
           votesPercent: 0,
-          status: 'PREPARATION',
+          status: 'PREPARATION' as const,
           apartmentsCount: selectedLead.apartmentsCount || undefined
         }
 

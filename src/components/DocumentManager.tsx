@@ -137,7 +137,7 @@ export default function DocumentManager() {
         type: file.type,
         size: file.size,
         uploadedAt: new Date().toISOString(),
-        status: 'pending',
+        status: 'pending' as const,
         category,
         leadId,
         fileData

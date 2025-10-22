@@ -289,7 +289,7 @@ export default function TaskManagement() {
               id: Date.now().toString(),
               ...taskData,
               createdAt: new Date().toISOString(),
-              status: 'pending'
+              status: 'PENDING' as const
             }
             addTask(newTask)
             showNotification('Задача создана', 'success')
