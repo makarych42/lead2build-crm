@@ -19,7 +19,7 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
   // Zustand store
   const updateVoting = useVotingsStore((state) => state.updateVoting)
   
-  const { showNotification, showConfirm } = useNotification()
+  const { success: showNotification, confirm: showConfirm } = useNotification()
   const { editingCell, tempValue, setTempValue, startEdit, cancelEdit, isEditing } = useInlineEdit()
 
   const apartments = voting.apartments || []
