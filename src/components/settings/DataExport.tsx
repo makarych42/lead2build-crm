@@ -5,7 +5,7 @@ import { useLeadsStore, useVotingsStore, useTasksStore, useDocumentsStore, useUs
 import { useNotification } from '@/components/NotificationService'
 
 export default function DataExport() {
-  const { confirm, success, showError } = useNotification()
+  const { confirm, success, error: showError } = useNotification()
   
   const leads = useLeadsStore((state) => state.leads)
   const votings = useVotingsStore((state) => state.votings)
