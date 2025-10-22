@@ -59,6 +59,7 @@ export default function TaskManagement() {
   // Создание демо пользователей
   useEffect(() => {
     if (isUsersInitialized && users.length === 0) {
+      const now = new Date().toISOString()
       const demoUsers: User[] = [
         {
           id: 'user-1',
@@ -66,7 +67,8 @@ export default function TaskManagement() {
           email: 'ivan@lead2build.ru',
           role: 'SALES_MANAGER',
           active: true,
-          phone: '+7 (999) 111-11-11'
+          phone: '+7 (999) 111-11-11',
+          createdAt: now
         },
         {
           id: 'user-2',
@@ -74,7 +76,8 @@ export default function TaskManagement() {
           email: 'maria@lead2build.ru',
           role: 'DOCUMENT_SPECIALIST',
           active: true,
-          phone: '+7 (999) 222-22-22'
+          phone: '+7 (999) 222-22-22',
+          createdAt: now
         },
         {
           id: 'user-3',
@@ -82,7 +85,8 @@ export default function TaskManagement() {
           email: 'petr@lead2build.ru',
           role: 'TECHNICAL_INSPECTOR',
           active: true,
-          phone: '+7 (999) 333-33-33'
+          phone: '+7 (999) 333-33-33',
+          createdAt: now
         },
         {
           id: 'user-4',
@@ -90,7 +94,8 @@ export default function TaskManagement() {
           email: 'anna@lead2build.ru',
           role: 'VOTING_COORDINATOR',
           active: true,
-          phone: '+7 (999) 444-44-44'
+          phone: '+7 (999) 444-44-44',
+          createdAt: now
         },
         {
           id: 'user-admin',
@@ -98,7 +103,8 @@ export default function TaskManagement() {
           email: 'admin@lead2build.ru',
           role: 'ADMIN',
           active: true,
-          phone: '+7 (999) 000-00-00'
+          phone: '+7 (999) 000-00-00',
+          createdAt: now
         }
       ]
       setUsers(demoUsers)

@@ -85,6 +85,9 @@ Prisma.NullTypes = {
  * Enums
  */
 exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
+  ReadUncommitted: 'ReadUncommitted',
+  ReadCommitted: 'ReadCommitted',
+  RepeatableRead: 'RepeatableRead',
   Serializable: 'Serializable'
 });
 
@@ -108,6 +111,11 @@ exports.Prisma.StageHistoryScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
 };
 
 
@@ -153,7 +161,8 @@ const config = {
   "datasourceNames": [
     "db"
   ],
-  "activeProvider": "sqlite",
+  "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -162,8 +171,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Lead {\n  id           String         @id @default(cuid())\n  address      String\n  status       String\n  stage        String\n  createdAt    DateTime       @default(now())\n  updatedAt    DateTime       @updatedAt\n  stageHistory StageHistory[]\n}\n\nmodel StageHistory {\n  id        String   @id @default(cuid())\n  leadId    String\n  stage     String\n  status    String\n  timestamp DateTime @default(now())\n  lead      Lead     @relation(fields: [leadId], references: [id])\n}\n",
-  "inlineSchemaHash": "c6f0a6dc858737f573144a1635b8fa5eaba92fe44ef9108e8437a251cd915ec8",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Lead {\n  id           String         @id @default(cuid())\n  address      String\n  status       String\n  stage        String\n  createdAt    DateTime       @default(now())\n  updatedAt    DateTime       @updatedAt\n  stageHistory StageHistory[]\n}\n\nmodel StageHistory {\n  id        String   @id @default(cuid())\n  leadId    String\n  stage     String\n  status    String\n  timestamp DateTime @default(now())\n  lead      Lead     @relation(fields: [leadId], references: [id])\n}\n",
+  "inlineSchemaHash": "698ea76c754eddb9c9b3ea158c31f8b72333e3c428308c362e2a1384eb51fc5d",
   "copyEngine": true
 }
 
