@@ -1,0 +1,20 @@
+# PowerShell commands to move the Lead2Build project
+
+# Example 1: Move to Desktop directly
+Move-Item "c:\Users\makar\OneDrive\Desktop\123\construction-management" "c:\Users\makar\Desktop\lead2build-crm"
+
+# Example 2: Move to Documents folder
+# Move-Item "c:\Users\makar\OneDrive\Desktop\123\construction-management" "c:\Users\makar\Documents\lead2build-crm"
+
+# Example 3: Move to a custom location (create folder if needed)
+# New-Item -ItemType Directory -Path "c:\Projects" -Force
+# Move-Item "c:\Users\makar\OneDrive\Desktop\123\construction-management" "c:\Projects\lead2build-crm"
+
+# Example 4: Move to D: drive (if you have one)
+# New-Item -ItemType Directory -Path "D:\Projects" -Force
+# Move-Item "c:\Users\makar\OneDrive\Desktop\123\construction-management" "D:\Projects\lead2build-crm"
+
+# After moving, navigate to the new location:
+# cd "NEW_LOCATION_PATH"
+
+# Note: Choose only ONE of the examples above. Uncomment the lines you want to use.

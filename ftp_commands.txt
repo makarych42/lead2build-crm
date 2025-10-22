@@ -1,0 +1,9 @@
+open 37.140.192.212 21
+user u3272131_cursor M@k@rych42
+binary
+cd public_html
+put "Z:\gighub\lead2build-crm\public_html\.htaccess" ".htaccess"
+put "Z:\gighub\lead2build-crm\public_html\index.html" "index.html"
+put "Z:\gighub\lead2build-crm\public_html\leads.html" "leads.html"
+put "Z:\gighub\lead2build-crm\public_html\README.md" "README.md"
+quit

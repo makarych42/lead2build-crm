@@ -1,0 +1,51 @@
+# Автоматическое обновление зависимостей
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    open-pull-requests-limit: 10
+    reviewers:
+      - "your-username" # Замените на ваш GitHub username
+    assignees:
+      - "your-username"
+    labels:
+      - "dependencies"
+      - "npm"
+    commit-message:
+      prefix: "chore"
+      include: "scope"
+    # Группировка обновлений
+    groups:
+      testing:
+        patterns:
+          - "vitest"
+          - "@testing-library/*"
+          - "jsdom"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "next"
+      ui:
+        patterns:
+          - "lucide-react"
+          - "tailwindcss"
+          - "recharts"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "ci"
+

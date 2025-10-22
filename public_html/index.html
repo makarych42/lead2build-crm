@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead2Build - CRM для строительных компаний</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <h1 class="text-2xl font-bold text-blue-600">Lead2Build</h1>
+                    </div>
+                </div>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#dashboard" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Дашборд</a>
+                    <a href="#leads" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Лиды</a>
+                    <a href="#projects" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Проекты</a>
+                    <a href="#reports" class="text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium">Отчеты</a>
+                </nav>
+                <div class="flex items-center space-x-4">
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                        <i class="fas fa-plus mr-2"></i>Новый лид
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Dashboard Stats -->
+        <div class="px-4 py-6 sm:px-0">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Total Leads -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-users text-blue-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Всего лидов</dt>
+                                    <dd class="text-lg font-medium text-gray-900">24</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Active Projects -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-hammer text-green-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Активные проекты</dt>
+                                    <dd class="text-lg font-medium text-gray-900">8</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-check-circle text-green-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Завершено</dt>
+                                    <dd class="text-lg font-medium text-gray-900">12</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Revenue -->
+                <div class="bg-white overflow-hidden shadow rounded-lg">
+                    <div class="p-5">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-ruble-sign text-yellow-500 text-2xl"></i>
+                            </div>
+                            <div class="ml-5 w-0 flex-1">
+                                <dl>
+                                    <dt class="text-sm font-medium text-gray-500 truncate">Выручка</dt>
+                                    <dd class="text-lg font-medium text-gray-900">₽2.4M</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Leads -->
+            <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                <div class="px-4 py-5 sm:px-6">
+                    <h3 class="text-lg leading-6 font-medium text-gray-900">Последние лиды</h3>
+                    <p class="mt-1 max-w-2xl text-sm text-gray-500">Недавно добавленные потенциальные клиенты</p>
+                </div>
+                <ul class="divide-y divide-gray-200">
+                    <li class="px-4 py-4 sm:px-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center">
+                                        <span class="text-white font-medium">ИИ</span>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">Иванов Иван</div>
+                                    <div class="text-sm text-gray-500">ул. Ленина, 123</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                    Новый
+                                </span>
+                                <span class="ml-2 text-sm text-gray-500">2 часа назад</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="px-4 py-4 sm:px-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-green-500 flex items-center justify-center">
+                                        <span class="text-white font-medium">ПП</span>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">Петров Петр</div>
+                                    <div class="text-sm text-gray-500">пр. Мира, 45</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                                    В работе
+                                </span>
+                                <span class="ml-2 text-sm text-gray-500">1 день назад</span>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="px-4 py-4 sm:px-6">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 rounded-full bg-purple-500 flex items-center justify-center">
+                                        <span class="text-white font-medium">СС</span>
+                                    </div>
+                                </div>
+                                <div class="ml-4">
+                                    <div class="text-sm font-medium text-gray-900">Сидоров Сидор</div>
+                                    <div class="text-sm text-gray-500">ул. Пушкина, 67</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                    Оценка
+                                </span>
+                                <span class="ml-2 text-sm text-gray-500">3 дня назад</span>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-gray-500">&copy; 2024 Lead2Build. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Простая интерактивность
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Lead2Build CRM загружен');
+        });
+    </script>
+</body>
+</html>
