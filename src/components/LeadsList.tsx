@@ -473,10 +473,6 @@ export default function LeadsList({ refreshTrigger }: LeadsListProps = {}) {
           onView={handleViewLead}
           onEdit={handleEditLead}
           onDelete={confirmDelete}
-          getStatusColor={getStatusColor}
-          getStatusText={getStatusText}
-          getStageText={getStageText}
-          formatDate={formatDate}
         />
       ) : (
         // Канбан доска
