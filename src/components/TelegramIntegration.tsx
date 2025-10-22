@@ -5,24 +5,9 @@ import { Bot, Users, Bell, Settings as SettingsIcon, MessageCircle, CheckCircle,
 import { useTelegramStore, useUsersStore } from '@/stores'
 import { useNotification } from './NotificationService'
 import TelegramAutomation from './TelegramAutomation'
+import type { User, UserRole } from '@/types'
 
 // ============= ТИПЫ И ИНТЕРФЕЙСЫ =============
-
-type UserRole = 'SALES_MANAGER' | 'DOCUMENT_SPECIALIST' | 'TECHNICAL_INSPECTOR' | 
-                'VOTING_COORDINATOR' | 'VOTING_MANAGER' | 'ADMIN'
-
-interface User {
-  id: string
-  name: string
-  email: string
-  role: UserRole
-  phone?: string
-  telegram?: string
-  avatar?: string
-  active: boolean
-  createdAt: string
-  lastLogin?: string
-}
 
 interface TelegramConnection {
   userId: string

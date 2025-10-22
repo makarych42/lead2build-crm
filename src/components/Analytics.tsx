@@ -3,22 +3,7 @@
 import { useState, useMemo } from 'react'
 import { BarChart3, TrendingUp, TrendingDown, Home, Vote, FileText, Building, Users, CheckCircle, XCircle, Clock, MapPin, Percent, Activity } from 'lucide-react'
 import { useLeadsStore, useVotingsStore, useDocumentsStore } from '@/stores'
-
-interface Lead {
-  id: string
-  address: string
-  city: string
-  contactPerson: string
-  contactPhone: string
-  contactEmail?: string
-  source: string
-  status: 'NEW' | 'IN_PROGRESS' | 'VOTING' | 'COMPLETED' | 'REJECTED'
-  currentStage: string
-  createdAt: string
-  buildingType?: string
-  floorsCount?: number
-  apartmentsCount?: number
-}
+import type { Lead, Voting, Document } from '@/types'
 
 interface Apartment {
   id: string
@@ -29,38 +14,7 @@ interface Apartment {
   email?: string
   notes?: string
   voteStatus: 'FOR' | 'AGAINST' | 'ABSTAINED' | 'NOT_VOTED' | 'NO_CONTACT'
-}
-
-interface Voting {
-  id: string
-  leadId: string
-  address: string
-  registryRequested?: string
-  registryReceived?: string
-  giszhkhRegistered?: string
-  votingForm?: string
-  votingStartDate?: string
-  votingEndDate?: string
-  requiredVotes?: number
-  currentVotes: number
-  votesPercent: number
-  status: 'PREPARATION' | 'ACTIVE' | 'COMPLETED' | 'FAILED'
-  failureReason?: string
-  apartmentsCount?: number
-  ownersNames?: string
   apartments?: Apartment[]
-}
-
-interface Document {
-  id: string
-  name: string
-  type: string
-  size: number
-  uploadedAt: string
-  status: 'pending' | 'verified' | 'rejected'
-  leadId: string
-  category: string
-  fileData?: string
 }
 
 type Section = 'overview' | 'leads' | 'votings' | 'apartments' | 'documents' | 'geography'

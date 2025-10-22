@@ -4,28 +4,7 @@ import { useState, useMemo } from 'react'
 import { Plus, Search, Edit2, Trash2, X, Save, User as UserIcon, Mail, Phone, MessageCircle } from 'lucide-react'
 import { useUsersStore, useTasksStore } from '@/stores'
 import { useNotification } from '@/components/NotificationService'
-
-type UserRole = 'SALES_MANAGER' | 'DOCUMENT_SPECIALIST' | 'TECHNICAL_INSPECTOR' | 
-                'VOTING_COORDINATOR' | 'VOTING_MANAGER' | 'ADMIN'
-
-interface User {
-  id: string
-  name: string
-  email: string
-  role: UserRole
-  phone?: string
-  telegram?: string
-  avatar?: string
-  active: boolean
-  createdAt: string
-  lastLogin?: string
-}
-
-interface Task {
-  id: string
-  assignedTo: string[]
-  status: string
-}
+import type { User, UserRole } from '@/types'
 
 const ROLE_LABELS: Record<UserRole, string> = {
   SALES_MANAGER: 'Менеджер по продажам',
