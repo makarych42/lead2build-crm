@@ -7,7 +7,7 @@ import { VirtualizedLeadsList } from './leads/VirtualizedLeadsList'
 import { VirtualizedLeadsGrid } from './leads/VirtualizedLeadsGrid'
 import { useNotification } from './NotificationService'
 import { LeadsGridSkeleton, LeadsListSkeleton } from './skeletons'
-import type { Lead } from '@/types'
+import type { Lead, LeadStatus } from '@/types'
 
 interface EditLeadModalProps {
   lead: Lead
@@ -249,7 +249,7 @@ export default function LeadsList({ refreshTrigger }: LeadsListProps = {}) {
     e.dataTransfer.dropEffect = 'move'
   }
 
-  const handleDrop = (e: React.DragEvent, newStatus: string) => {
+  const handleDrop = (e: React.DragEvent, newStatus: LeadStatus) => {
     e.preventDefault()
     
     if (draggedLead && draggedLead.status !== newStatus) {
