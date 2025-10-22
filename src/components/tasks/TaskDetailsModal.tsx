@@ -45,7 +45,7 @@ export function TaskDetailsModal({
   const priorityConfig = getPriorityConfig(task.priority)
   const typeConfig = getTypeConfig(task.type)
 
-  const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'completed'
+  const isOverdue = task.dueDate && new Date(task.dueDate) < new Date() && task.status !== 'COMPLETED'
 
   return (
     <>
