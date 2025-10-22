@@ -61,22 +61,24 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
     }
   }
 
-  const handleDeleteApartment = async (apartmentId: string) => {
-    const confirmed = await showConfirm('Удалить квартиру?')
-    if (!confirmed) return
+  const handleDeleteApartment = (apartmentId: string) => {
+    showConfirm(
+      'Удалить квартиру?',
+      () => {
+        const updatedApartments = (voting.apartments || []).filter(apt => apt.id !== apartmentId)
+        const progress = calculateVotingProgress(updatedApartments)
 
-    const updatedApartments = (voting.apartments || []).filter(apt => apt.id !== apartmentId)
-    const progress = calculateVotingProgress(updatedApartments)
-
-    updateVoting(votingId, {
-      apartments: updatedApartments,
-      apartmentsCount: updatedApartments.length,
-      currentVotes: progress.currentVotes,
-      requiredVotes: progress.requiredVotes,
-      votesPercent: progress.votesPercent
-    })
-    
-    showNotification('Квартира удалена', 'success')
+        updateVoting(votingId, {
+          apartments: updatedApartments,
+          apartmentsCount: updatedApartments.length,
+          currentVotes: progress.currentVotes,
+          requiredVotes: progress.requiredVotes,
+          votesPercent: progress.votesPercent
+        })
+        
+        showNotification('Квартира удалена')
+      }
+    )
   }
 
   const handleAddApartment = () => {
