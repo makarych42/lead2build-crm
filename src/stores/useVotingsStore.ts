@@ -58,7 +58,7 @@ export const useVotingsStore = create<VotingsState>()(
       getActiveVotings: () =>
         get().votings.filter(
           (voting) =>
-            voting.status === 'ACTIVE' || voting.status === 'IN_PROGRESS'
+            voting.status === 'ACTIVE'
         ),
 
       getCompletedVotings: () =>
