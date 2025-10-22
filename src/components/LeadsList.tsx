@@ -7,22 +7,7 @@ import { VirtualizedLeadsList } from './leads/VirtualizedLeadsList'
 import { VirtualizedLeadsGrid } from './leads/VirtualizedLeadsGrid'
 import { useNotification } from './NotificationService'
 import { LeadsGridSkeleton, LeadsListSkeleton } from './skeletons'
-
-interface Lead {
-  id: string
-  address: string
-  city: string
-  contactPerson: string
-  contactPhone: string
-  contactEmail?: string
-  source: string
-  status: string
-  currentStage: string
-  createdAt: string
-  buildingType?: string
-  floorsCount?: number
-  apartmentsCount?: number
-}
+import type { Lead } from '@/types'
 
 interface EditLeadModalProps {
   lead: Lead
