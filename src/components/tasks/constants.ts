@@ -67,36 +67,36 @@ export const PRIORITY_LABELS = {
 
 // Конфигурация для UI компонентов
 export const TASK_STATUSES = [
-  { value: 'pending' as const, label: 'Ожидает', color: 'text-gray-700', bgColor: 'bg-gray-100' },
-  { value: 'in_progress' as const, label: 'В работе', color: 'text-blue-700', bgColor: 'bg-blue-100' },
-  { value: 'completed' as const, label: 'Завершена', color: 'text-green-700', bgColor: 'bg-green-100' },
-  { value: 'cancelled' as const, label: 'Отменена', color: 'text-red-700', bgColor: 'bg-red-100' }
+  { value: 'PENDING' as const, label: 'Ожидает', color: 'text-gray-700', bgColor: 'bg-gray-100' },
+  { value: 'IN_PROGRESS' as const, label: 'В работе', color: 'text-blue-700', bgColor: 'bg-blue-100' },
+  { value: 'COMPLETED' as const, label: 'Завершена', color: 'text-green-700', bgColor: 'bg-green-100' },
+  { value: 'CANCELLED' as const, label: 'Отменена', color: 'text-red-700', bgColor: 'bg-red-100' }
 ]
 
 export const TASK_PRIORITIES = [
   { 
-    value: 'low' as const, 
+    value: 'LOW' as const, 
     label: 'Низкий', 
     color: 'text-gray-700', 
     bgColor: 'bg-gray-100',
     icon: () => null
   },
   { 
-    value: 'medium' as const, 
+    value: 'MEDIUM' as const, 
     label: 'Средний', 
     color: 'text-blue-700', 
     bgColor: 'bg-blue-100',
     icon: () => null
   },
   { 
-    value: 'high' as const, 
+    value: 'HIGH' as const, 
     label: 'Высокий', 
     color: 'text-orange-700', 
     bgColor: 'bg-orange-100',
     icon: () => null
   },
   { 
-    value: 'urgent' as const, 
+    value: 'URGENT' as const, 
     label: 'Срочно', 
     color: 'text-red-700', 
     bgColor: 'bg-red-100',
