@@ -133,7 +133,7 @@ export const useTelegramStore = create<TelegramState>()(
         get().connections.find((conn) => conn.userId === userId),
 
       getActiveConnections: () =>
-        get().connections.filter((conn) => conn.isActive),
+        get().connections.filter((conn) => conn.connected),
 
       getUnreadNotifications: () =>
         get().notifications.filter((notif) => !notif.read),
