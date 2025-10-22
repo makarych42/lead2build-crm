@@ -23,7 +23,7 @@ describe('Leads Store', () => {
       contactEmail: 'john@example.com',
       source: 'ОЗ',
       status: 'NEW' as const,
-      currentStage: 'INITIAL_CONSULTATION',
+      currentStage: 'INITIAL_CONSULTATION' as const,
       createdAt: new Date().toISOString()
     }
 
@@ -43,7 +43,7 @@ describe('Leads Store', () => {
       contactPhone: '+79991234567',
       source: 'ОЗ',
       status: 'NEW' as const,
-      currentStage: 'INITIAL_CONSULTATION',
+      currentStage: 'INITIAL_CONSULTATION' as const,
       createdAt: new Date().toISOString()
     }
 
@@ -67,7 +67,7 @@ describe('Leads Store', () => {
       contactPhone: '+79991234567',
       source: 'ОЗ',
       status: 'NEW' as const,
-      currentStage: 'INITIAL_CONSULTATION',
+      currentStage: 'INITIAL_CONSULTATION' as const,
       createdAt: new Date().toISOString()
     }
 
@@ -104,7 +104,7 @@ describe('Leads Store', () => {
       contactPhone: '+79991234567',
       source: 'ОЗ',
       status: 'NEW' as const,
-      currentStage: 'INITIAL_CONSULTATION',
+      currentStage: 'INITIAL_CONSULTATION' as const,
       createdAt: new Date().toISOString()
     }
 
@@ -127,7 +127,7 @@ describe('Leads Store', () => {
       contactPhone: '+79991234567',
       source: 'ОЗ',
       status: 'NEW' as const,
-      currentStage: 'INITIAL_CONSULTATION',
+      currentStage: 'INITIAL_CONSULTATION' as const,
       createdAt: new Date().toISOString()
     }
 
@@ -142,7 +142,7 @@ describe('Leads Store', () => {
         contactPhone: '+79991234568',
         source: 'Фронты',
         status: 'IN_PROGRESS' as const,
-        currentStage: 'DOCUMENTS_COLLECTION',
+        currentStage: 'DOCUMENT_PREPARATION' as const,
         createdAt: new Date().toISOString()
       }
     ]
