@@ -32,7 +32,7 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
     if (voting.apartments) {
       const updatedApartments = voting.apartments.map(apt => {
         if (apt.id === apartmentId) {
-          let value = tempValue
+          let value: string | number = tempValue
           if (field === 'area') {
             value = parseFloat(tempValue as string) || 0
           }
