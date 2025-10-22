@@ -19,7 +19,7 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
   // Zustand store
   const updateVoting = useVotingsStore((state) => state.updateVoting)
   
-  const { success: showNotification, confirm: showConfirm } = useNotification()
+  const { success: showNotification, confirm: showConfirm, error: showError } = useNotification()
   const { editingCell, tempValue, setTempValue, startEdit, cancelEdit, isEditing } = useInlineEdit()
 
   const apartments = voting.apartments || []
@@ -104,39 +104,41 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
       votesPercent: progress.votesPercent
     })
     
-    showNotification('Квартира добавлена', 'success')
+    showNotification('Квартира добавлена')
   }
 
-  const handleBulkCreate = async () => {
+  const handleBulkCreate = () => {
     const count = voting.apartmentsCount || 10
-    const confirmed = await showConfirm(`Создать ${count} квартир автоматически?`)
-    if (!confirmed) return
-
-    const newApartments: Apartment[] = []
-    for (let i = 1; i <= count; i++) {
-      newApartments.push({
-        id: `apt-${votingId}-${i}-${Date.now()}`,
-        number: i.toString(),
-        ownerName: '',
-        area: 0,
-        phone: '',
-        email: '',
-        notes: '',
+    showConfirm(
+      `Создать ${count} квартир автоматически?`,
+      () => {
+        const newApartments: Apartment[] = []
+        for (let i = 1; i <= count; i++) {
+          newApartments.push({
+            id: `apt-${votingId}-${i}-${Date.now()}`,
+            number: i.toString(),
+            ownerName: '',
+            area: 0,
+            phone: '',
+            email: '',
+            notes: '',
         voteStatus: 'NOT_VOTED'
       })
     }
 
-    const progress = calculateVotingProgress(newApartments)
+        const progress = calculateVotingProgress(newApartments)
 
-    updateVoting(votingId, {
-      apartments: newApartments,
-      apartmentsCount: count,
-      currentVotes: progress.currentVotes,
-      requiredVotes: progress.requiredVotes,
-      votesPercent: progress.votesPercent
-    })
-    
-    showNotification(`Создано ${count} квартир`, 'success')
+        updateVoting(votingId, {
+          apartments: newApartments,
+          apartmentsCount: count,
+          currentVotes: progress.currentVotes,
+          requiredVotes: progress.requiredVotes,
+          votesPercent: progress.votesPercent
+        })
+        
+        showNotification(`Создано ${count} квартир`)
+      }
+    )
   }
 
   const handleDownloadTemplate = () => {
@@ -155,7 +157,7 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
     const workbook = XLSX.utils.book_new()
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Квартиры')
     XLSX.writeFile(workbook, `Шаблон_квартир_${votingId}.xlsx`)
-    showNotification('Шаблон скачан', 'success')
+    showNotification('Шаблон скачан')
   }
 
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -192,9 +194,9 @@ export function ApartmentSubTable({ votingId, voting }: ApartmentSubTableProps) 
           votesPercent: progress.votesPercent
         })
         
-        showNotification(`Загружено ${newApartments.length} квартир из Excel`, 'success')
+        showNotification(`Загружено ${newApartments.length} квартир из Excel`)
       } catch (error) {
-        showNotification('Ошибка при загрузке файла', 'error')
+        showError('Ошибка при загрузке файла')
       }
     }
     reader.readAsBinaryString(file)
