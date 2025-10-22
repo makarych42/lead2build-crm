@@ -4,14 +4,15 @@ import { useState, useEffect, useMemo, useCallback } from 'react'
 import { File, FileText, Upload, Check, AlertCircle, X, Download, Eye, Trash2, Building, User, Phone, Mail, ChevronLeft, ChevronRight, Search } from 'lucide-react'
 import { useDocumentsStore, useLeadsStore } from '@/stores'
 import { useNotification } from './NotificationService'
+import type { Lead } from '@/types'
 
-interface Lead {
+interface LeadLocal {
   id: string
   address: string
   city: string
   contactPerson: string
   contactPhone: string
-  contactEmail: string | null
+  contactEmail: string | null | undefined
   source: string
   status: 'NEW' | 'IN_PROGRESS' | 'VOTING' | 'COMPLETED' | 'REJECTED'
   currentStage: string
