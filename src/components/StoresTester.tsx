@@ -93,12 +93,15 @@ export default function StoresTester() {
       const testTask = {
         id: `test-task-${Date.now()}`,
         title: 'Test Task',
+        description: 'Test task description',
         type: 'CALL' as const,
         priority: 'MEDIUM' as const,
         status: 'PENDING' as const,
         assignedTo: ['test-user'],
         createdBy: 'test-user',
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        dueDate: new Date().toISOString(),
+        context: { leadId: 'test-lead' }
       }
       
       const tasksCount = tasks.length
