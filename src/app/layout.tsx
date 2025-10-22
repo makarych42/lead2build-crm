@@ -4,6 +4,7 @@ import "./globals.css";
 import { NotificationProvider } from "@/components/NotificationService";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import GlobalErrorHandler from "@/components/GlobalErrorHandler";
+import AuthProvider from "@/components/auth/AuthProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,9 +33,11 @@ export default function RootLayout({
       >
         <GlobalErrorHandler />
         <ErrorBoundary>
-          <NotificationProvider>
-            {children}
-          </NotificationProvider>
+          <AuthProvider>
+            <NotificationProvider>
+              {children}
+            </NotificationProvider>
+          </AuthProvider>
         </ErrorBoundary>
       </body>
     </html>

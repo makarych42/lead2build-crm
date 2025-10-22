@@ -11,14 +11,116 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// ============= ENUMS =============
+
+enum UserRole {
+  ADMIN
+  SALES_MANAGER
+  DOCUMENT_SPECIALIST
+  TECHNICAL_INSPECTOR
+  VOTING_COORDINATOR
+  VOTING_MANAGER
+}
+
+// ============= AUTH MODELS =============
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  password      String
+  role          UserRole
+  phone         String?
+  telegram      String?
+  avatar        String?
+  active        Boolean   @default(true)
+  blocked       Boolean   @default(false)
+  blockedReason String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  lastLogin     DateTime?
+
+  // NextAuth Relations
+  accounts Account[]
+  sessions Session[]
+
+  // App Relations
+  loginHistory LoginHistory[]
+  createdLeads Lead[]         @relation("CreatedBy")
+
+  @@index([email])
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model LoginHistory {
+  id        String   @id @default(cuid())
+  userId    String
+  ipAddress String?
+  userAgent String?
+  success   Boolean
+  reason    String?
+  timestamp DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([timestamp])
+}
+
+// ============= BUSINESS MODELS =============
+
 model Lead {
-  id           String         @id @default(cuid())
-  address      String
-  status       String
-  stage        String
-  createdAt    DateTime       @default(now())
-  updatedAt    DateTime       @updatedAt
+  id        String   @id @default(cuid())
+  address   String
+  status    String
+  stage     String
+  createdBy String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  creator      User?          @relation("CreatedBy", fields: [createdBy], references: [id])
   stageHistory StageHistory[]
+
+  @@index([createdBy])
+  @@index([status])
+  @@index([stage])
 }
 
 model StageHistory {
@@ -27,5 +129,7 @@ model StageHistory {
   stage     String
   status    String
   timestamp DateTime @default(now())
-  lead      Lead     @relation(fields: [leadId], references: [id])
+  lead      Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)
+
+  @@index([leadId])
 }

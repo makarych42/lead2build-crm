@@ -122,11 +122,67 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  phone: 'phone',
+  telegram: 'telegram',
+  avatar: 'avatar',
+  active: 'active',
+  blocked: 'blocked',
+  blockedReason: 'blockedReason',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  lastLogin: 'lastLogin'
+};
+
+exports.Prisma.AccountScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  provider: 'provider',
+  providerAccountId: 'providerAccountId',
+  refresh_token: 'refresh_token',
+  access_token: 'access_token',
+  expires_at: 'expires_at',
+  token_type: 'token_type',
+  scope: 'scope',
+  id_token: 'id_token',
+  session_state: 'session_state'
+};
+
+exports.Prisma.SessionScalarFieldEnum = {
+  id: 'id',
+  sessionToken: 'sessionToken',
+  userId: 'userId',
+  expires: 'expires'
+};
+
+exports.Prisma.VerificationTokenScalarFieldEnum = {
+  identifier: 'identifier',
+  token: 'token',
+  expires: 'expires'
+};
+
+exports.Prisma.LoginHistoryScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  success: 'success',
+  reason: 'reason',
+  timestamp: 'timestamp'
+};
+
 exports.Prisma.LeadScalarFieldEnum = {
   id: 'id',
   address: 'address',
   status: 'status',
   stage: 'stage',
+  createdBy: 'createdBy',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -149,8 +205,25 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  SALES_MANAGER: 'SALES_MANAGER',
+  DOCUMENT_SPECIALIST: 'DOCUMENT_SPECIALIST',
+  TECHNICAL_INSPECTOR: 'TECHNICAL_INSPECTOR',
+  VOTING_COORDINATOR: 'VOTING_COORDINATOR',
+  VOTING_MANAGER: 'VOTING_MANAGER'
+};
 
 exports.Prisma.ModelName = {
+  User: 'User',
+  Account: 'Account',
+  Session: 'Session',
+  VerificationToken: 'VerificationToken',
+  LoginHistory: 'LoginHistory',
   Lead: 'Lead',
   StageHistory: 'StageHistory'
 };
