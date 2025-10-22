@@ -102,7 +102,8 @@ export function CreateTaskModal({
       dueDate: formData.dueDate || new Date().toISOString(),
       leadId: formData.leadId || undefined,
       votingId: formData.votingId || undefined,
-      completedAt: undefined
+      completedAt: undefined,
+      context: {}
     })
   }
 
