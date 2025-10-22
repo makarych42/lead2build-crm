@@ -62,8 +62,8 @@ export function TaskDetailsModal({
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b">
               <div className="flex items-center space-x-3">
-                <div className={`p-2 rounded-lg ${typeConfig.bgColor}`}>
-                  <typeConfig.icon className={`h-5 w-5 ${typeConfig.color}`} />
+                <div className={`p-2 rounded-lg ${typeConfig.bgColor} ${typeConfig.color}`}>
+                  📋
                 </div>
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900">
