@@ -30,7 +30,7 @@ export default function VotingManager() {
   const [showVotingForm, setShowVotingForm] = useState(false)
   const [selectedLead, setSelectedLead] = useState<Lead | null>(null)
   
-  const { showNotification, showConfirm } = useNotification()
+  const { success: showNotification, confirm: showConfirm } = useNotification()
 
   useEffect(() => {
     if (isVotingsInitialized) {
@@ -84,8 +84,7 @@ export default function VotingManager() {
         )
 
         showNotification(
-          `✅ Новое голосование создано для ${selectedLead.address}! Задачи созданы, уведомления отправлены.`,
-          'success'
+          `✅ Новое голосование создано для ${selectedLead.address}! Задачи созданы, уведомления отправлены.`
         )
         
         setIsCreating(false)
@@ -99,18 +98,20 @@ export default function VotingManager() {
   const handleVotingUpdate = useCallback(
     (votingId: string, field: string, value: any) => {
       updateVoting(votingId, { [field]: value })
-      showNotification('Голосование обновлено', 'success')
+      showNotification('Голосование обновлено')
     },
     [updateVoting, showNotification]
   )
 
   const handleVotingDelete = useCallback(
-    async (votingId: string) => {
-      const confirmed = await showConfirm('Вы уверены, что хотите удалить это голосование?')
-      if (!confirmed) return
-
-      deleteVoting(votingId)
-      showNotification('Голосование удалено', 'success')
+    (votingId: string) => {
+      showConfirm(
+        'Вы уверены, что хотите удалить это голосование?',
+        () => {
+          deleteVoting(votingId)
+          showNotification('Голосование удалено')
+        }
+      )
     },
     [deleteVoting, showNotification, showConfirm]
   )
@@ -118,18 +119,20 @@ export default function VotingManager() {
   const handleStatusChange = useCallback(
     (votingId: string, newStatus: string) => {
       updateVoting(votingId, { status: newStatus })
-      showNotification(`Статус изменен на "${newStatus}"`, 'success')
+      showNotification(`Статус изменен на "${newStatus}"`)
     },
     [updateVoting, showNotification]
   )
 
-  const handleClearAll = useCallback(async () => {
-    const confirmed = await showConfirm('Вы уверены, что хотите удалить все голосования?')
-    if (!confirmed) return
-
-    // Удаляем все голосования по одному
-    votings.forEach(voting => deleteVoting(voting.id))
-    showNotification('Все голосования удалены', 'success')
+  const handleClearAll = useCallback(() => {
+    showConfirm(
+      'Вы уверены, что хотите удалить все голосования?',
+      () => {
+        // Удаляем все голосования по одному
+        votings.forEach(voting => deleteVoting(voting.id))
+        showNotification('Все голосования удалены')
+      }
+    )
   }, [votings, deleteVoting, showNotification, showConfirm])
 
   if (loading) {
