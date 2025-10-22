@@ -393,10 +393,10 @@ export default function LeadsList({ refreshTrigger }: LeadsListProps = {}) {
         </div>
         
         {/* Content skeleton based on view mode */}
-        {viewMode === 'grid' ? (
-          <LeadsGridSkeleton count={6} />
-        ) : (
+        {viewMode === 'list' ? (
           <LeadsListSkeleton count={10} />
+        ) : (
+          <LeadsGridSkeleton count={6} />
         )}
       </div>
     )
