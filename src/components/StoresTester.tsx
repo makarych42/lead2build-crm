@@ -101,7 +101,11 @@ export default function StoresTester() {
         createdBy: 'test-user',
         createdAt: new Date().toISOString(),
         dueDate: new Date().toISOString(),
-        context: { leadId: 'test-lead' }
+        leadId: 'test-lead',
+        context: {
+          address: 'Test Address',
+          clientName: 'Test Client'
+        }
       }
       
       const tasksCount = tasks.length
