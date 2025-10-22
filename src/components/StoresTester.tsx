@@ -51,7 +51,7 @@ export default function StoresTester() {
         contactEmail: 'test@test.com',
         source: 'Test',
         status: 'NEW' as const,
-        currentStage: 'Новый лид',
+        currentStage: 'INITIAL_CONSULTATION' as const,
         createdAt: new Date().toISOString(),
         buildingType: 'МКД',
         floorsCount: 5,
