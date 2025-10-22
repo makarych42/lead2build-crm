@@ -69,11 +69,17 @@ export const useUsersStore = create<UsersState>()(
       getManagers: () =>
         get().users.filter(
           (user) =>
-            user.role === 'MANAGER' || user.role === 'ADMIN'
+            user.role === 'SALES_MANAGER' || user.role === 'ADMIN'
         ),
 
       getExecutors: () =>
-        get().users.filter((user) => user.role === 'EXECUTOR'),
+        get().users.filter((user) => 
+          user.role === 'SALES_MANAGER' || 
+          user.role === 'DOCUMENT_SPECIALIST' || 
+          user.role === 'TECHNICAL_INSPECTOR' ||
+          user.role === 'VOTING_COORDINATOR' ||
+          user.role === 'VOTING_MANAGER'
+        ),
     }),
     {
       name: 'construction_users', // localStorage key
