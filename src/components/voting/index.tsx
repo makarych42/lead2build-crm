@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { Plus } from 'lucide-react'
 import { useVotingsStore, useLeadsStore } from '@/stores'
 import { Voting, Lead, VotingFormData } from './types'
+import { VotingStatus } from '@/types'
 import { VotingStats } from './VotingStats'
 import { VotingTable } from './VotingTable'
 import { LeadSelectionModal } from './LeadSelectionModal'
@@ -117,7 +118,7 @@ export default function VotingManager() {
   )
 
   const handleStatusChange = useCallback(
-    (votingId: string, newStatus: string) => {
+    (votingId: string, newStatus: VotingStatus) => {
       updateVoting(votingId, { status: newStatus })
       showNotification(`Статус изменен на "${newStatus}"`)
     },
