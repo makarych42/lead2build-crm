@@ -105,10 +105,11 @@ export const TASK_PRIORITIES = [
 ]
 
 export const TASK_TYPES = [
-  { value: 'general' as const, label: 'Общая', color: 'text-gray-700', bgColor: 'bg-gray-100', icon: () => null },
-  { value: 'call' as const, label: 'Звонок', color: 'text-blue-700', bgColor: 'bg-blue-100', icon: () => null },
-  { value: 'meeting' as const, label: 'Встреча', color: 'text-purple-700', bgColor: 'bg-purple-100', icon: () => null },
-  { value: 'document' as const, label: 'Документ', color: 'text-green-700', bgColor: 'bg-green-100', icon: () => null },
-  { value: 'voting' as const, label: 'Голосование', color: 'text-orange-700', bgColor: 'bg-orange-100', icon: () => null }
+  { value: 'CONTACT_CLIENT' as const, label: 'Связаться с клиентом', color: 'text-blue-700', bgColor: 'bg-blue-100', icon: () => null },
+  { value: 'CONDUCT_CONSULTATION' as const, label: 'Провести консультацию', color: 'text-purple-700', bgColor: 'bg-purple-100', icon: () => null },
+  { value: 'PREPARE_PROPOSAL' as const, label: 'Подготовить предложение', color: 'text-green-700', bgColor: 'bg-green-100', icon: () => null },
+  { value: 'UPLOAD_DOCUMENTS' as const, label: 'Загрузить документы', color: 'text-orange-700', bgColor: 'bg-orange-100', icon: () => null },
+  { value: 'CREATE_VOTING' as const, label: 'Создать голосование', color: 'text-pink-700', bgColor: 'bg-pink-100', icon: () => null },
+  { value: 'CUSTOM' as const, label: 'Произвольная', color: 'text-gray-700', bgColor: 'bg-gray-100', icon: () => null }
 ]
 
