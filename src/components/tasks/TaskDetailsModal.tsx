@@ -23,7 +23,7 @@ export function TaskDetailsModal({
 }: TaskDetailsModalProps) {
   if (!isOpen) return null
 
-  const assignedUser = users.find(u => u.id === task.assignedTo)
+  const assignedUsers = users.filter(u => task.assignedTo.includes(u.id))
   const createdUser = users.find(u => u.id === task.createdBy)
 
   const getStatusConfig = (status: Task['status']) => {
@@ -132,10 +132,12 @@ export function TaskDetailsModal({
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     <User className="h-4 w-4 inline mr-1" />
-                    Исполнитель
+                    Исполнители
                   </label>
                   <p className="text-sm text-gray-900 bg-gray-50 rounded-md p-3">
-                    {assignedUser?.name || 'Не назначен'}
+                    {assignedUsers.length > 0 
+                      ? assignedUsers.map(u => u.name).join(', ') 
+                      : 'Не назначены'}
                   </p>
                 </div>
 
