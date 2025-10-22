@@ -195,10 +195,12 @@ function isValidEmail(email: string): boolean {
 /**
  * Получить следующий статус голосования
  */
-export function getNextStatus(currentStatus: string): string | null {
-  const statusFlow: Record<string, string> = {
+export function getNextStatus(currentStatus: VotingStatus): VotingStatus | null {
+  const statusFlow: Record<VotingStatus, VotingStatus> = {
     PREPARATION: 'ACTIVE',
-    ACTIVE: 'COMPLETED'
+    ACTIVE: 'COMPLETED',
+    COMPLETED: 'COMPLETED',
+    FAILED: 'FAILED'
   }
   return statusFlow[currentStatus] || null
 }
