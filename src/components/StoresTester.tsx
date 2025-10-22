@@ -94,7 +94,7 @@ export default function StoresTester() {
         id: `test-task-${Date.now()}`,
         title: 'Test Task',
         description: 'Test task description',
-        type: 'CALL' as const,
+        type: 'CONTACT_CLIENT' as const,
         priority: 'MEDIUM' as const,
         status: 'PENDING' as const,
         assignedTo: ['test-user'],
