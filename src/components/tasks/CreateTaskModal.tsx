@@ -99,7 +99,7 @@ export function CreateTaskModal({
     onSubmit({
       ...formData,
       description: formData.description || '',
-      dueDate: formData.dueDate || undefined,
+      dueDate: formData.dueDate || new Date().toISOString(),
       leadId: formData.leadId || undefined,
       votingId: formData.votingId || undefined,
       completedAt: undefined
