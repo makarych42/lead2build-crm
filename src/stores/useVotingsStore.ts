@@ -65,7 +65,6 @@ export const useVotingsStore = create<VotingsState>()(
         get().votings.filter(
           (voting) =>
             voting.status === 'COMPLETED' ||
-            voting.status === 'APPROVED' ||
             voting.status === 'FAILED'
         ),
     }),
