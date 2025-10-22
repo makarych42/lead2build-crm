@@ -42,7 +42,7 @@ export default function NewLeadForm({ onClose, onLeadCreated }: NewLeadFormProps
         id: Date.now().toString(),
         ...formData,
         status: 'NEW' as const,
-        currentStage: 'INITIAL_CONSULTATION',
+        currentStage: 'INITIAL_CONSULTATION' as const,
         createdAt: new Date().toISOString(),
         buildingType: undefined,
         floorsCount: undefined,
