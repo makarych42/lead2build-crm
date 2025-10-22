@@ -59,7 +59,7 @@ export const useUsersStore = create<UsersState>()(
         get().users.filter((user) => user.role === role),
 
       getActiveUsers: () =>
-        get().users.filter((user) => user.isActive !== false),
+        get().users.filter((user) => user.active !== false),
 
       getCurrentUser: () => {
         const { currentUserId } = get()
