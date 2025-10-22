@@ -265,33 +265,38 @@ export default function LeadsList({ refreshTrigger }: LeadsListProps = {}) {
   }
 
   // Определение столбцов канбан доски
-  const kanbanColumns = [
+  const kanbanColumns: Array<{
+    id: LeadStatus
+    title: string
+    color: string
+    headerColor: string
+  }> = [
     {
-      id: 'NEW',
+      id: 'NEW' as LeadStatus,
       title: 'Новые',
       color: 'bg-blue-100 border-blue-200',
       headerColor: 'bg-blue-50 text-blue-800'
     },
     {
-      id: 'IN_PROGRESS',
+      id: 'IN_PROGRESS' as LeadStatus,
       title: 'В процессе',
       color: 'bg-yellow-100 border-yellow-200',
       headerColor: 'bg-yellow-50 text-yellow-800'
     },
     {
-      id: 'VOTING',
+      id: 'VOTING' as LeadStatus,
       title: 'Голосование',
       color: 'bg-purple-100 border-purple-200',
       headerColor: 'bg-purple-50 text-purple-800'
     },
     {
-      id: 'COMPLETED',
+      id: 'COMPLETED' as LeadStatus,
       title: 'Завершенные',
       color: 'bg-green-100 border-green-200',
       headerColor: 'bg-green-50 text-green-800'
     },
     {
-      id: 'REJECTED',
+      id: 'REJECTED' as LeadStatus,
       title: 'Отклоненные',
       color: 'bg-red-100 border-red-200',
       headerColor: 'bg-red-50 text-red-800'
