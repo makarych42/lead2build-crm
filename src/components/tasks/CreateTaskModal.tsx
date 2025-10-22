@@ -98,7 +98,7 @@ export function CreateTaskModal({
 
     onSubmit({
       ...formData,
-      description: formData.description || undefined,
+      description: formData.description || '',
       dueDate: formData.dueDate || undefined,
       leadId: formData.leadId || undefined,
       votingId: formData.votingId || undefined,
