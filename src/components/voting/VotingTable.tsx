@@ -8,12 +8,14 @@ import { getStatusColor, getStatusText, formatDate, formatDateForInput, getNextS
 import { ApartmentSubTable } from './ApartmentTable'
 import { useNotification } from '@/components/NotificationService'
 
+import { VotingStatus } from '@/types'
+
 interface VotingTableProps {
   votings: Voting[]
   activeTab: string
   onUpdate: (votingId: string, field: string, value: any) => void
   onDelete: (votingId: string) => void
-  onStatusChange: (votingId: string, newStatus: string) => void
+  onStatusChange: (votingId: string, newStatus: VotingStatus) => void
 }
 
 export function VotingTable({ votings, activeTab, onUpdate, onDelete, onStatusChange }: VotingTableProps) {
