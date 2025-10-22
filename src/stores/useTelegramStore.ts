@@ -136,7 +136,7 @@ export const useTelegramStore = create<TelegramState>()(
         get().connections.filter((conn) => conn.connected),
 
       getUnreadNotifications: () =>
-        get().notifications.filter((notif) => !notif.read),
+        get().notifications.filter((notif) => !notif.delivered),
 
       getActiveAutomationRules: () =>
         get().automationRules.filter((rule) => rule.enabled),
