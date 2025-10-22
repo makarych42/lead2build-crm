@@ -27,8 +27,8 @@ export function CreateTaskModal({
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    type: 'general' as Task['type'],
-    priority: 'medium' as Task['priority'],
+    type: 'CONTACT_CLIENT' as Task['type'],
+    priority: 'MEDIUM' as Task['priority'],
     assignedTo: [] as string[],
     createdBy: users[0]?.id || '',
     dueDate: '',
@@ -57,8 +57,8 @@ export function CreateTaskModal({
       setFormData({
         title: '',
         description: '',
-        type: 'general',
-        priority: 'medium',
+        type: 'CONTACT_CLIENT',
+        priority: 'MEDIUM',
         assignedTo: [],
         createdBy: users[0]?.id || '',
         dueDate: '',
