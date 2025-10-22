@@ -54,7 +54,7 @@ export const useTasksStore = create<TasksState>()(
       getTaskById: (id) => get().tasks.find((task) => task.id === id),
 
       getTasksByAssignee: (assigneeId) =>
-        get().tasks.filter((task) => task.assigneeId === assigneeId),
+        get().tasks.filter((task) => task.assignedTo.includes(assigneeId)),
 
       getTasksByStatus: (status) =>
         get().tasks.filter((task) => task.status === status),
