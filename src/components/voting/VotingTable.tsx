@@ -49,7 +49,7 @@ export function VotingTable({ votings, activeTab, onUpdate, onDelete, onStatusCh
     }
   }
 
-  const handleStatusChange = (voting: Voting, newStatus: string) => {
+  const handleStatusChange = (voting: Voting, newStatus: VotingStatus) => {
     const check = canChangeStatus(voting, newStatus)
     if (!check.can) {
       showNotification(check.reason || 'Невозможно изменить статус', 'error')
@@ -138,7 +138,7 @@ export function VotingTable({ votings, activeTab, onUpdate, onDelete, onStatusCh
                       <select
                         value={tempValue as string}
                         onChange={(e) => setTempValue(e.target.value)}
-                        onBlur={() => handleStatusChange(voting, tempValue as string)}
+                        onBlur={() => handleStatusChange(voting, tempValue as VotingStatus)}
                         onKeyDown={(e) => handleKeyDown(e, voting.id, 'status')}
                         autoFocus
                         className="w-full px-2 py-1 border border-blue-500 rounded text-sm text-gray-900 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"

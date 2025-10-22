@@ -1,6 +1,7 @@
 // Утилиты для модуля голосований
 
 import { Apartment, Voting } from './types'
+import { VotingStatus } from '@/types'
 
 /**
  * Рассчитывает прогресс голосования на основе площади квартир
@@ -205,7 +206,7 @@ export function getNextStatus(currentStatus: string): string | null {
 /**
  * Проверить можно ли изменить статус
  */
-export function canChangeStatus(voting: Voting, newStatus: string): { can: boolean; reason?: string } {
+export function canChangeStatus(voting: Voting, newStatus: VotingStatus): { can: boolean; reason?: string } {
   if (newStatus === 'ACTIVE') {
     if (!voting.votingStartDate || !voting.votingEndDate) {
       return { can: false, reason: 'Необходимо указать даты голосования' }
