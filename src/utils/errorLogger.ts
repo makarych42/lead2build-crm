@@ -111,7 +111,7 @@ export function clearErrorLogs(): void {
  */
 export function getErrorStats(): {
   total: number
-  bySeverity: Record<ErrorLog['severity'], number>
+  bySeverity: Record<Exclude<ErrorLog['severity'], undefined>, number>
   last24h: number
   byMessage: Record<string, number>
 } {
