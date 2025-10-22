@@ -247,10 +247,14 @@ export default function TaskManagement() {
           icon="📋"
           title="Задачи не найдены"
           description="Создайте первую задачу или измените фильтры"
-          action={{
-            label: 'Создать задачу',
-            onClick: handleCreateTask
-          }}
+          action={
+            <button
+              onClick={handleCreateTask}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+            >
+              Создать задачу
+            </button>
+          }
         />
       ) : (
         <div className={
