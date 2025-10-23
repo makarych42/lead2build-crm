@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useMemo, useCallback } from 'react'
+import React from 'react'
 import { Play, Square, SkipForward, RotateCcw, HelpCircle } from 'lucide-react'
 import { useOnboarding } from './OnboardingProvider'
 import { useOnboardingStore, useOnboardingState, useOnboardingProgress } from '@/stores/useOnboardingStore'
@@ -24,12 +24,12 @@ export const TourController: React.FC<TourControllerProps> = ({
   const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
-  const currentUser = useMemo(() => getCurrentUser(), [])
+  const currentUser = getCurrentUser()
 
   if (!currentUser) return null
 
   const userRole = currentUser.role as UserRole
-  const availableTours = useMemo(() => getToursForRole(userRole), [userRole])
+  const availableTours = getToursForRole(userRole)
 
   const handleStartTour = () => {
     // Начинаем с первого незавершенного тура
@@ -190,7 +190,7 @@ export const useTourController = () => {
   const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
-  const currentUser = useMemo(() => getCurrentUser(), [])
+  const currentUser = getCurrentUser()
 
   const startNextTour = () => {
     if (!currentUser) return

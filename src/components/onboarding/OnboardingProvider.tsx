@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import dynamic from 'next/dynamic'
 import { CallBackProps, STATUS, EVENTS, Step } from 'react-joyride'
 
@@ -57,15 +57,11 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
   }, [])
 
   // Инициализация онбординга при загрузке
-  const initializeOnboarding = useCallback(() => {
+  useEffect(() => {
     if (currentUser && !onboardingState.isInitialized) {
       onboardingActions.initializeOnboarding(currentUser.role as UserRole)
     }
-  }, [currentUser?.id, onboardingState.isInitialized, onboardingActions])
-
-  useEffect(() => {
-    initializeOnboarding()
-  }, [initializeOnboarding])
+  }, [currentUser?.id, onboardingState.isInitialized])
 
   // Обновление шагов при смене тура
   useEffect(() => {
