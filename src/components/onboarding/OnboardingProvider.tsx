@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useContext, useEffect, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState, useRef } from 'react'
 import dynamic from 'next/dynamic'
 import { CallBackProps, STATUS, EVENTS, Step } from 'react-joyride'
 
@@ -40,7 +40,6 @@ interface OnboardingProviderProps {
 }
 
 export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children }) => {
-  const { getCurrentUser } = useUsersStore()
   const onboardingState = useOnboardingState()
   const onboardingActions = useOnboardingActions()
   
@@ -48,30 +47,46 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
   const [steps, setSteps] = useState<Step[]>([])
   const [currentTourId, setCurrentTourId] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
-  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [userRole, setUserRole] = useState<UserRole | null>(null)
+  
+  // Use refs to prevent infinite loops
+  const initializationRef = useRef(false)
+  const userRoleRef = useRef<UserRole | null>(null)
 
   // Проверяем, что мы на клиенте
   useEffect(() => {
     setIsClient(true)
   }, [])
 
-  // Инициализируем пользователя только один раз
+  // Get user role once and store it
   useEffect(() => {
-    const user = getCurrentUser()
-    setCurrentUser(user)
-  }, [])
+    if (isClient && !initializationRef.current) {
+      try {
+        const { getCurrentUser } = useUsersStore.getState()
+        const user = getCurrentUser()
+        if (user?.role) {
+          const role = user.role as UserRole
+          setUserRole(role)
+          userRoleRef.current = role
+          initializationRef.current = true
+        }
+      } catch (error) {
+        console.warn('Failed to get current user:', error)
+      }
+    }
+  }, [isClient])
 
   // Инициализация онбординга при загрузке
   useEffect(() => {
-    if (currentUser && !onboardingState.isInitialized) {
-      onboardingActions.initializeOnboarding(currentUser.role as UserRole)
+    if (userRole && !onboardingState.isInitialized) {
+      onboardingActions.initializeOnboarding(userRole)
     }
-  }, [currentUser?.id, onboardingState.isInitialized])
+  }, [userRole, onboardingState.isInitialized])
 
   // Обновление шагов при смене тура
   useEffect(() => {
-    if (onboardingState.currentTour && currentUser) {
-      const tours = getToursForRole(currentUser.role as UserRole)
+    if (onboardingState.currentTour && userRole) {
+      const tours = getToursForRole(userRole)
       const tour = tours.find(t => t.id === onboardingState.currentTour?.id)
       
       if (tour) {
@@ -84,7 +99,7 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
       setSteps([])
       setCurrentTourId(null)
     }
-  }, [onboardingState.currentTour?.id, currentUser?.id])
+  }, [onboardingState.currentTour?.id, userRole])
 
   // Обработка событий Joyride
   const handleJoyrideCallback = (data: CallBackProps) => {

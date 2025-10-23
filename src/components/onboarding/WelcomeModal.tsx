@@ -13,20 +13,34 @@ interface WelcomeModalProps {
 }
 
 export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) => {
-  const { getCurrentUser, updateUser } = useUsersStore()
+  const { updateUser } = useUsersStore()
   const onboardingState = useOnboardingState()
   const onboardingActions = useOnboardingActions()
   
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null)
   const [isRoleSelection, setIsRoleSelection] = useState(false)
   const [isClient, setIsClient] = useState(false)
-
-  const currentUser = getCurrentUser()
+  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   // Проверяем, что мы на клиенте
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // Get current user once
+  useEffect(() => {
+    if (isClient && !isInitialized) {
+      try {
+        const { getCurrentUser } = useUsersStore.getState()
+        const user = getCurrentUser()
+        setCurrentUser(user)
+        setIsInitialized(true)
+      } catch (error) {
+        console.warn('Failed to get current user in WelcomeModal:', error)
+      }
+    }
+  }, [isClient, isInitialized])
 
   // Определяем, нужно ли показывать выбор роли
   React.useEffect(() => {

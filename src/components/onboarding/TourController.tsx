@@ -22,20 +22,29 @@ export const TourController: React.FC<TourControllerProps> = ({
   const { isActive, currentTour, startTour, stopTour, skipTour } = useOnboarding()
   const onboardingState = useOnboardingState()
   const progress = useOnboardingProgress()
-  const { getCurrentUser } = useUsersStore()
 
-  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [userRole, setUserRole] = useState<UserRole | null>(null)
   const [availableTours, setAvailableTours] = useState<any[]>([])
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
-    const user = getCurrentUser()
-    setCurrentUser(user)
-    if (user?.role) {
-      setAvailableTours(getToursForRole(user.role as UserRole))
+    if (!isInitialized) {
+      try {
+        const { getCurrentUser } = useUsersStore.getState()
+        const user = getCurrentUser()
+        if (user?.role) {
+          const role = user.role as UserRole
+          setUserRole(role)
+          setAvailableTours(getToursForRole(role))
+          setIsInitialized(true)
+        }
+      } catch (error) {
+        console.warn('Failed to get current user in TourController:', error)
+      }
     }
-  }, []) // Empty dependency array to run only once
+  }, [isInitialized])
 
-  if (!currentUser) return null
+  if (!userRole) return null
 
   const handleStartTour = () => {
     // Начинаем с первого незавершенного тура
@@ -194,21 +203,30 @@ export const useTourController = () => {
   const { isActive, currentTour, startTour, stopTour, skipTour } = useOnboarding()
   const onboardingState = useOnboardingState()
   const progress = useOnboardingProgress()
-  const { getCurrentUser } = useUsersStore()
 
-  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [userRole, setUserRole] = useState<UserRole | null>(null)
   const [availableTours, setAvailableTours] = useState<any[]>([])
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
-    const user = getCurrentUser()
-    setCurrentUser(user)
-    if (user?.role) {
-      setAvailableTours(getToursForRole(user.role as UserRole))
+    if (!isInitialized) {
+      try {
+        const { getCurrentUser } = useUsersStore.getState()
+        const user = getCurrentUser()
+        if (user?.role) {
+          const role = user.role as UserRole
+          setUserRole(role)
+          setAvailableTours(getToursForRole(role))
+          setIsInitialized(true)
+        }
+      } catch (error) {
+        console.warn('Failed to get current user in useTourController:', error)
+      }
     }
-  }, []) // Empty dependency array to run only once
+  }, [isInitialized])
 
   const startNextTour = () => {
-    if (!currentUser) return
+    if (!userRole) return
     
     const nextTour = availableTours.find(tour => 
       !progress.completedTours.includes(tour.id)
@@ -220,7 +238,7 @@ export const useTourController = () => {
   }
 
   const getProgressInfo = () => {
-    if (!currentUser) return { completed: 0, total: 0, percentage: 0 }
+    if (!userRole) return { completed: 0, total: 0, percentage: 0 }
 
     const completed = progress.completedTours.length
     const total = availableTours.length

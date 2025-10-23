@@ -13,17 +13,30 @@ interface OnboardingChecklistProps {
 }
 
 export const OnboardingChecklist: React.FC<OnboardingChecklistProps> = ({ isOpen, onClose }) => {
-  const { getCurrentUser } = useUsersStore()
   const progress = useOnboardingProgress()
   const { startTour } = useOnboardingActions()
   const [isClient, setIsClient] = useState(false)
-
-  const currentUser = getCurrentUser()
+  const [currentUser, setCurrentUser] = useState<any>(null)
+  const [isInitialized, setIsInitialized] = useState(false)
 
   // Проверяем, что мы на клиенте
   useEffect(() => {
     setIsClient(true)
   }, [])
+
+  // Get current user once
+  useEffect(() => {
+    if (isClient && !isInitialized) {
+      try {
+        const { getCurrentUser } = useUsersStore.getState()
+        const user = getCurrentUser()
+        setCurrentUser(user)
+        setIsInitialized(true)
+      } catch (error) {
+        console.warn('Failed to get current user in OnboardingChecklist:', error)
+      }
+    }
+  }, [isClient, isInitialized])
 
   if (!isOpen || !currentUser || !isClient) return null
 
