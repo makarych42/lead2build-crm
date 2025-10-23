@@ -301,7 +301,7 @@ export default function Dashboard({ onNavigate, onNewLead, refreshTrigger }: Das
       </div>
 
       {/* Быстрые действия */}
-      <div className="bg-white rounded-lg shadow mb-12">
+      <div className="bg-white rounded-lg shadow mb-12" data-tour="dashboard-actions">
         <div className="p-6">
           <h3 className="text-lg font-medium text-gray-900 mb-4">Быстрые действия</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -361,7 +361,7 @@ export default function Dashboard({ onNavigate, onNewLead, refreshTrigger }: Das
       </div>
 
       {/* Основные метрики */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8" data-tour="dashboard-stats">
         {primaryStats.map((stat, index) => {
           const Icon = stat.icon
           return (

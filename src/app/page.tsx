@@ -12,6 +12,10 @@ import TaskManagement from '@/components/tasks'
 import Settings from '@/components/Settings'
 import TelegramIntegration from '@/components/TelegramIntegration'
 import StoresTester from '@/components/StoresTester'
+import { WelcomeModal } from '@/components/onboarding/WelcomeModal'
+import { OnboardingChecklist } from '@/components/onboarding/OnboardingChecklist'
+import { TourController } from '@/components/onboarding/TourController'
+import { useOnboardingStore, useOnboardingState } from '@/stores/useOnboardingStore'
 
 type Tab = 'dashboard' | 'leads' | 'documents' | 'voting' | 'analytics' | 'notifications' | 'telegram' | 'settings' | 'test'
 
@@ -19,6 +23,10 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
   const [showNewLeadForm, setShowNewLeadForm] = useState(false)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
+  
+  // Onboarding state
+  const onboardingState = useOnboardingState()
+  const { showWelcomeModal, hideWelcomeModal, toggleChecklist } = useOnboardingStore()
 
   // Функция для перегенерации тестовых данных
   const handleRegenerateTestData = () => {
@@ -61,13 +69,14 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow-sm border-b">
+      <header className="bg-white shadow-sm border-b" data-tour="dashboard-header">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <h1 className="text-2xl font-bold text-gray-900">
               CRM для контроля процесса голосования жильцов Lead2Build
             </h1>
             <div className="flex items-center space-x-3">
+              <TourController variant="compact" />
               <button
                 onClick={handleRegenerateTestData}
                 className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -79,6 +88,7 @@ export default function Home() {
               <button
                 onClick={() => setShowNewLeadForm(true)}
                 className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                data-tour="dashboard-actions"
               >
                 <Plus className="h-4 w-4 mr-2" />
                 Новый лид
@@ -90,7 +100,7 @@ export default function Home() {
 
       <div className="flex">
         {/* Sidebar */}
-        <nav className="w-64 bg-white shadow-sm min-h-screen">
+        <nav className="w-64 bg-white shadow-sm min-h-screen" data-tour="navigation">
           <div className="p-4">
             <ul className="space-y-2">
               {tabs.map((tab) => {
@@ -104,6 +114,7 @@ export default function Home() {
                           ? 'bg-blue-100 text-blue-700'
                           : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
                       }`}
+                      data-tour={`nav-${tab.id}`}
                     >
                       <Icon className="h-5 w-5 mr-3" />
                       {tab.label}
@@ -142,6 +153,20 @@ export default function Home() {
           onLeadCreated={handleLeadCreated}
         />
       )}
+
+      {/* Onboarding Modals */}
+      <WelcomeModal 
+        isOpen={onboardingState.showWelcomeModal}
+        onClose={hideWelcomeModal}
+      />
+      
+      <OnboardingChecklist 
+        isOpen={onboardingState.showChecklist}
+        onClose={() => toggleChecklist()}
+      />
+
+      {/* Floating Tour Controller */}
+      <TourController variant="floating" />
     </div>
   )
 }

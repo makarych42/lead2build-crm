@@ -91,6 +91,10 @@ export interface User {
   active: boolean
   createdAt: string
   lastLogin?: string
+  // Onboarding fields
+  onboardingCompleted?: boolean
+  onboardingProgress?: Record<string, boolean>
+  preferredTourStyle?: 'full' | 'minimal'
 }
 
 export interface Lead {
