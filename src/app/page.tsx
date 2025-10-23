@@ -12,10 +12,7 @@ import TaskManagement from '@/components/tasks'
 import Settings from '@/components/Settings'
 import TelegramIntegration from '@/components/TelegramIntegration'
 import StoresTester from '@/components/StoresTester'
-import { WelcomeModal } from '@/components/onboarding/WelcomeModal'
-import { OnboardingChecklist } from '@/components/onboarding/OnboardingChecklist'
-import { TourController } from '@/components/onboarding/TourController'
-import { useOnboardingStore, useOnboardingState } from '@/stores/useOnboardingStore'
+import { SimpleTourController } from '@/components/onboarding/SimpleTourController'
 
 type Tab = 'dashboard' | 'leads' | 'documents' | 'voting' | 'analytics' | 'notifications' | 'telegram' | 'settings' | 'test'
 
@@ -23,10 +20,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<Tab>('dashboard')
   const [showNewLeadForm, setShowNewLeadForm] = useState(false)
   const [refreshTrigger, setRefreshTrigger] = useState(0)
-  
-  // Onboarding state
-  const onboardingState = useOnboardingState()
-  const { showWelcomeModalAction, hideWelcomeModalAction, toggleChecklistAction } = useOnboardingStore()
 
   // Функция для перегенерации тестовых данных
   const handleRegenerateTestData = () => {
@@ -76,7 +69,7 @@ export default function Home() {
               CRM для контроля процесса голосования жильцов Lead2Build
             </h1>
             <div className="flex items-center space-x-3">
-              <TourController variant="compact" />
+              <SimpleTourController variant="default" />
               <button
                 onClick={handleRegenerateTestData}
                 className="inline-flex items-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -154,19 +147,8 @@ export default function Home() {
         />
       )}
 
-      {/* Onboarding Modals */}
-      <WelcomeModal 
-        isOpen={onboardingState.showWelcomeModal}
-        onClose={hideWelcomeModalAction}
-      />
-      
-      <OnboardingChecklist 
-        isOpen={onboardingState.showChecklist}
-        onClose={toggleChecklistAction}
-      />
-
-      {/* Floating Tour Controller */}
-      <TourController variant="floating" />
+    {/* Simple Tour Controller */}
+    <SimpleTourController variant="floating" />
     </div>
   )
 }

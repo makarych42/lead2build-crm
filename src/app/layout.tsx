@@ -4,7 +4,7 @@ import "./globals.css";
 import { NotificationProvider } from "@/components/NotificationService";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import GlobalErrorHandler from "@/components/GlobalErrorHandler";
-import { OnboardingProvider } from "@/components/onboarding/OnboardingProvider";
+import { SimpleOnboardingProvider } from "@/components/onboarding/SimpleOnboardingProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,13 +32,13 @@ export default function RootLayout({
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
         <GlobalErrorHandler />
-        <ErrorBoundary>
-          <NotificationProvider>
-            <OnboardingProvider>
-              {children}
-            </OnboardingProvider>
-          </NotificationProvider>
-        </ErrorBoundary>
+            <ErrorBoundary>
+              <NotificationProvider>
+                <SimpleOnboardingProvider>
+                  {children}
+                </SimpleOnboardingProvider>
+              </NotificationProvider>
+            </ErrorBoundary>
       </body>
     </html>
   );
