@@ -51,7 +51,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
   }
 
   const handleSkipOnboarding = () => {
-    onboardingActions.hideWelcomeModal()
+    onboardingActions.hideWelcomeModalAction()
     if (currentUser) {
       updateUser(currentUser.id, { onboardingCompleted: true })
     }
@@ -59,7 +59,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
   }
 
   const handleClose = () => {
-    onboardingActions.hideWelcomeModal()
+    onboardingActions.hideWelcomeModalAction()
     onClose()
   }
 

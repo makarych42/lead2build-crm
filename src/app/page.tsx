@@ -26,7 +26,7 @@ export default function Home() {
   
   // Onboarding state
   const onboardingState = useOnboardingState()
-  const { showWelcomeModal, hideWelcomeModal, toggleChecklist } = useOnboardingStore()
+  const { showWelcomeModalAction, hideWelcomeModalAction, toggleChecklistAction } = useOnboardingStore()
 
   // Функция для перегенерации тестовых данных
   const handleRegenerateTestData = () => {
@@ -157,12 +157,12 @@ export default function Home() {
       {/* Onboarding Modals */}
       <WelcomeModal 
         isOpen={onboardingState.showWelcomeModal}
-        onClose={hideWelcomeModal}
+        onClose={hideWelcomeModalAction}
       />
       
       <OnboardingChecklist 
         isOpen={onboardingState.showChecklist}
-        onClose={() => toggleChecklist()}
+        onClose={toggleChecklistAction}
       />
 
       {/* Floating Tour Controller */}

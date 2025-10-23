@@ -3,7 +3,7 @@
 import React from 'react'
 import { Play, Square, SkipForward, RotateCcw, HelpCircle } from 'lucide-react'
 import { useOnboarding } from './OnboardingProvider'
-import { useOnboardingStore, useOnboardingState } from '@/stores/useOnboardingStore'
+import { useOnboardingStore, useOnboardingState, useOnboardingProgress } from '@/stores/useOnboardingStore'
 import { useUsersStore } from '@/stores/useUsersStore'
 import { getToursForRole } from '@/config/onboarding-tours'
 import { UserRole } from '@/types'
@@ -21,6 +21,7 @@ export const TourController: React.FC<TourControllerProps> = ({
 }) => {
   const { isActive, currentTour, startTour, stopTour, skipTour } = useOnboarding()
   const onboardingState = useOnboardingState()
+  const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
   const currentUser = getCurrentUser()
@@ -33,7 +34,7 @@ export const TourController: React.FC<TourControllerProps> = ({
   const handleStartTour = () => {
     // Начинаем с первого незавершенного тура
     const firstIncompleteTour = availableTours.find(tour => 
-      !onboardingState.progress.completedTours.includes(tour.id)
+      !progress.completedTours.includes(tour.id)
     )
     
     if (firstIncompleteTour) {
@@ -167,7 +168,7 @@ export const TourController: React.FC<TourControllerProps> = ({
             <span>Начать обучение</span>
           </button>
           
-          {onboardingState.progress.completedTours.length > 0 && (
+          {progress.completedTours.length > 0 && (
             <button
               onClick={handleRestartTours}
               className="flex items-center space-x-2 px-3 py-2 text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-md transition-colors"
@@ -186,6 +187,7 @@ export const TourController: React.FC<TourControllerProps> = ({
 export const useTourController = () => {
   const { isActive, currentTour, startTour, stopTour, skipTour } = useOnboarding()
   const onboardingState = useOnboardingState()
+  const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
   const currentUser = getCurrentUser()
@@ -197,7 +199,7 @@ export const useTourController = () => {
     const availableTours = getToursForRole(userRole)
     
     const nextTour = availableTours.find(tour => 
-      !onboardingState.progress.completedTours.includes(tour.id)
+      !progress.completedTours.includes(tour.id)
     )
     
     if (nextTour) {
@@ -210,7 +212,7 @@ export const useTourController = () => {
 
     const userRole = currentUser.role as UserRole
     const availableTours = getToursForRole(userRole)
-    const completed = onboardingState.progress.completedTours.length
+    const completed = progress.completedTours.length
     const total = availableTours.length
     const percentage = total > 0 ? Math.round((completed / total) * 100) : 0
 

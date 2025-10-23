@@ -1,3 +1,4 @@
+import React from 'react'
 import { UserRole } from '@/types'
 import { OnboardingTour, RoleBasedTour, ONBOARDING_TOURS, ROLE_DESCRIPTIONS } from '@/types/onboarding'
 import { 

@@ -34,9 +34,9 @@ export const useOnboardingStore = create<OnboardingStore>()(
         set({
           isActive: true,
           currentTour: { id: tourId } as OnboardingTour,
-          currentStep: 0,
-          showWelcomeModal: false
+          currentStep: 0
         })
+        state.hideWelcomeModalAction()
       },
 
       stopTour: () => {
@@ -122,15 +122,15 @@ export const useOnboardingStore = create<OnboardingStore>()(
       },
 
       // UI management
-      showWelcomeModal: () => {
+      showWelcomeModalAction: () => {
         set({ showWelcomeModal: true })
       },
 
-      hideWelcomeModal: () => {
+      hideWelcomeModalAction: () => {
         set({ showWelcomeModal: false })
       },
 
-      toggleChecklist: () => {
+      toggleChecklistAction: () => {
         const state = get()
         set({ showChecklist: !state.showChecklist })
       },
@@ -187,9 +187,9 @@ export const useOnboardingActions = () => {
     markTourCompleted: state.markTourCompleted,
     markStepCompleted: state.markStepCompleted,
     updateProgress: state.updateProgress,
-    showWelcomeModal: state.showWelcomeModal,
-    hideWelcomeModal: state.hideWelcomeModal,
-    toggleChecklist: state.toggleChecklist,
+    showWelcomeModalAction: state.showWelcomeModalAction,
+    hideWelcomeModalAction: state.hideWelcomeModalAction,
+    toggleChecklistAction: state.toggleChecklistAction,
     initializeOnboarding: state.initializeOnboarding,
     resetOnboarding: state.resetOnboarding
   }))

@@ -186,10 +186,6 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
             color: '#6B7280',
             fontSize: 14,
           },
-          beacon: {
-            inner: '#3B82F6',
-            outer: '#3B82F6',
-          },
         }}
         locale={{
           back: 'Назад',

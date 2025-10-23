@@ -31,7 +31,7 @@ export const calculateOnboardingProgress = (user: User): OnboardingProgress => {
 
   return {
     completedTours,
-    completedSteps: user.onboardingProgress || {},
+    completedSteps: {},
     totalProgress,
     lastCompletedAt: user.lastLogin
   }

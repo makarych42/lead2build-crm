@@ -82,9 +82,9 @@ export interface OnboardingActions {
   updateProgress: (progress: Partial<OnboardingProgress>) => void
   
   // UI management
-  showWelcomeModal: () => void
-  hideWelcomeModal: () => void
-  toggleChecklist: () => void
+  showWelcomeModalAction: () => void
+  hideWelcomeModalAction: () => void
+  toggleChecklistAction: () => void
   
   // Initialization
   initializeOnboarding: (userRole: UserRole) => void
