@@ -1,4 +1,5 @@
 {
+  "id": "/mobile",
   "name": "Lead2Build CRM",
   "short_name": "Lead2Build",
   "description": "CRM для управления строительными проектами и голосованиями",
@@ -6,7 +7,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "scope": "/",
   "lang": "ru",
   "dir": "ltr",
