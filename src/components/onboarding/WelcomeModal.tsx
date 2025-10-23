@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { X, User, ArrowRight, Play, SkipForward } from 'lucide-react'
 import { useOnboardingStore, useOnboardingState, useOnboardingActions } from '@/stores/useOnboardingStore'
 import { useUsersStore } from '@/stores/useUsersStore'
@@ -19,8 +19,14 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
   
   const [selectedRole, setSelectedRole] = useState<UserRole | null>(null)
   const [isRoleSelection, setIsRoleSelection] = useState(false)
+  const [isClient, setIsClient] = useState(false)
 
   const currentUser = getCurrentUser()
+
+  // Проверяем, что мы на клиенте
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Определяем, нужно ли показывать выбор роли
   React.useEffect(() => {
@@ -63,7 +69,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
     onClose()
   }
 
-  if (!isOpen) return null
+  if (!isOpen || !isClient) return null
 
   const availableRoles: { role: UserRole; title: string; description: string }[] = [
     {

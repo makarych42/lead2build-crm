@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { CheckCircle, Circle, Play, BarChart3, Home as HomeIcon, FileText, Vote, Bell, MessageCircle, Settings as SettingsIcon } from 'lucide-react'
 import { useOnboardingStore, useOnboardingProgress, useOnboardingActions } from '@/stores/useOnboardingStore'
 import { useUsersStore } from '@/stores/useUsersStore'
@@ -16,10 +16,16 @@ export const OnboardingChecklist: React.FC<OnboardingChecklistProps> = ({ isOpen
   const { getCurrentUser } = useUsersStore()
   const progress = useOnboardingProgress()
   const { startTour } = useOnboardingActions()
+  const [isClient, setIsClient] = useState(false)
 
   const currentUser = getCurrentUser()
 
-  if (!isOpen || !currentUser) return null
+  // Проверяем, что мы на клиенте
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  if (!isOpen || !currentUser || !isClient) return null
 
   const userRole = currentUser.role as UserRole
   const availableTours = getToursForRole(userRole)

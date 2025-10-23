@@ -1,7 +1,14 @@
 'use client'
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import Joyride, { CallBackProps, STATUS, EVENTS, Step } from 'react-joyride'
+import dynamic from 'next/dynamic'
+import { CallBackProps, STATUS, EVENTS, Step } from 'react-joyride'
+
+// Динамический импорт Joyride для избежания ошибок гидратации
+const Joyride = dynamic(() => import('react-joyride'), {
+  ssr: false,
+  loading: () => null
+})
 import { useOnboardingStore, useOnboardingState, useOnboardingActions } from '@/stores/useOnboardingStore'
 import { useUsersStore } from '@/stores/useUsersStore'
 import { getToursForRole } from '@/config/onboarding-tours'
@@ -40,8 +47,14 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
   const [run, setRun] = useState(false)
   const [steps, setSteps] = useState<Step[]>([])
   const [currentTourId, setCurrentTourId] = useState<string | null>(null)
+  const [isClient, setIsClient] = useState(false)
 
   const currentUser = getCurrentUser()
+
+  // Проверяем, что мы на клиенте
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
 
   // Инициализация онбординга при загрузке
   useEffect(() => {
@@ -127,81 +140,83 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
     <OnboardingContext.Provider value={contextValue}>
       {children}
       
-      <Joyride
-        steps={steps}
-        run={run}
-        continuous
-        showProgress
-        showSkipButton
-        callback={handleJoyrideCallback}
-        styles={{
-          options: {
-            primaryColor: '#3B82F6',
-            textColor: '#1F2937',
-            backgroundColor: '#FFFFFF',
-            overlayColor: 'rgba(0, 0, 0, 0.4)',
-            spotlightShadow: '0 0 15px rgba(0, 0, 0, 0.5)',
-            beaconSize: 36,
-            zIndex: 1000,
-          },
-          tooltip: {
-            borderRadius: 8,
-            fontSize: 14,
-            padding: 20,
-          },
-          tooltipContainer: {
-            textAlign: 'left',
-          },
-          tooltipTitle: {
-            fontSize: 16,
-            fontWeight: 600,
-            marginBottom: 8,
-          },
-          tooltipContent: {
-            padding: '8px 0',
-          },
-          tooltipFooter: {
-            marginTop: 16,
-            paddingTop: 16,
-            borderTop: '1px solid #E5E7EB',
-          },
-          buttonNext: {
-            backgroundColor: '#3B82F6',
-            borderRadius: 6,
-            color: '#FFFFFF',
-            fontSize: 14,
-            fontWeight: 500,
-            padding: '8px 16px',
-          },
-          buttonBack: {
-            color: '#6B7280',
-            fontSize: 14,
-            marginRight: 8,
-          },
-          buttonSkip: {
-            color: '#6B7280',
-            fontSize: 14,
-          },
-          buttonClose: {
-            color: '#6B7280',
-            fontSize: 14,
-          },
-        }}
-        locale={{
-          back: 'Назад',
-          close: 'Закрыть',
-          last: 'Завершить',
-          next: 'Далее',
-          skip: 'Пропустить',
-        }}
-        disableOverlayClose
-        disableCloseOnEsc={false}
-        hideCloseButton={false}
-        disableScrolling={false}
-        scrollToFirstStep
-        spotlightClicks={false}
-        spotlightPadding={4}
-      />
+      {isClient && (
+        <Joyride
+          steps={steps}
+          run={run}
+          continuous
+          showProgress
+          showSkipButton
+          callback={handleJoyrideCallback}
+          styles={{
+            options: {
+              primaryColor: '#3B82F6',
+              textColor: '#1F2937',
+              backgroundColor: '#FFFFFF',
+              overlayColor: 'rgba(0, 0, 0, 0.4)',
+              spotlightShadow: '0 0 15px rgba(0, 0, 0, 0.5)',
+              beaconSize: 36,
+              zIndex: 1000,
+            },
+            tooltip: {
+              borderRadius: 8,
+              fontSize: 14,
+              padding: 20,
+            },
+            tooltipContainer: {
+              textAlign: 'left',
+            },
+            tooltipTitle: {
+              fontSize: 16,
+              fontWeight: 600,
+              marginBottom: 8,
+            },
+            tooltipContent: {
+              padding: '8px 0',
+            },
+            tooltipFooter: {
+              marginTop: 16,
+              paddingTop: 16,
+              borderTop: '1px solid #E5E7EB',
+            },
+            buttonNext: {
+              backgroundColor: '#3B82F6',
+              borderRadius: 6,
+              color: '#FFFFFF',
+              fontSize: 14,
+              fontWeight: 500,
+              padding: '8px 16px',
+            },
+            buttonBack: {
+              color: '#6B7280',
+              fontSize: 14,
+              marginRight: 8,
+            },
+            buttonSkip: {
+              color: '#6B7280',
+              fontSize: 14,
+            },
+            buttonClose: {
+              color: '#6B7280',
+              fontSize: 14,
+            },
+          }}
+          locale={{
+            back: 'Назад',
+            close: 'Закрыть',
+            last: 'Завершить',
+            next: 'Далее',
+            skip: 'Пропустить',
+          }}
+          disableOverlayClose
+          disableCloseOnEsc={false}
+          hideCloseButton={false}
+          disableScrolling={false}
+          scrollToFirstStep
+          spotlightClicks={false}
+          spotlightPadding={4}
+        />
+      )}
     </OnboardingContext.Provider>
   )
 }
