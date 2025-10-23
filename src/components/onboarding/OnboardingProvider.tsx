@@ -61,7 +61,7 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
     if (currentUser && !onboardingState.isInitialized) {
       onboardingActions.initializeOnboarding(currentUser.role as UserRole)
     }
-  }, [currentUser, onboardingState.isInitialized, onboardingActions])
+  }, [currentUser?.id, onboardingState.isInitialized])
 
   // Обновление шагов при смене тура
   useEffect(() => {
@@ -79,7 +79,7 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
       setSteps([])
       setCurrentTourId(null)
     }
-  }, [onboardingState.currentTour, currentUser])
+  }, [onboardingState.currentTour?.id, currentUser?.id])
 
   // Обработка событий Joyride
   const handleJoyrideCallback = (data: CallBackProps) => {

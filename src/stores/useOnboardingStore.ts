@@ -139,14 +139,11 @@ export const useOnboardingStore = create<OnboardingStore>()(
       initializeOnboarding: (userRole: UserRole) => {
         const state = get()
         
-        // Проверяем, нужно ли показать приветственное модальное окно
-        const shouldShowWelcome = !state.isInitialized || 
-          state.progress.completedTours.length === 0
+        if (state.isInitialized) return
 
         set({
           isInitialized: true,
-          showWelcomeModal: shouldShowWelcome,
-          showChecklist: shouldShowWelcome
+          showWelcomeModal: true
         })
       },
 

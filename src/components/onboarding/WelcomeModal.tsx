@@ -35,7 +35,7 @@ export const WelcomeModal: React.FC<WelcomeModalProps> = ({ isOpen, onClose }) =
     } else if (currentUser?.role) {
       setSelectedRole(currentUser.role as UserRole)
     }
-  }, [currentUser])
+  }, [currentUser?.id, currentUser?.role])
 
   const handleRoleSelect = (role: UserRole) => {
     setSelectedRole(role)
