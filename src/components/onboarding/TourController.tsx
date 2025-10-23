@@ -24,7 +24,7 @@ export const TourController: React.FC<TourControllerProps> = ({
   const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
-  const [currentUser, setCurrentUser] = useState(getCurrentUser())
+  const [currentUser, setCurrentUser] = useState<any>(null)
   const [availableTours, setAvailableTours] = useState<any[]>([])
 
   useEffect(() => {
@@ -33,7 +33,7 @@ export const TourController: React.FC<TourControllerProps> = ({
     if (user?.role) {
       setAvailableTours(getToursForRole(user.role as UserRole))
     }
-  }, [])
+  }, []) // Empty dependency array to run only once
 
   if (!currentUser) return null
 
@@ -196,7 +196,7 @@ export const useTourController = () => {
   const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
-  const [currentUser, setCurrentUser] = useState(getCurrentUser())
+  const [currentUser, setCurrentUser] = useState<any>(null)
   const [availableTours, setAvailableTours] = useState<any[]>([])
 
   useEffect(() => {
@@ -205,7 +205,7 @@ export const useTourController = () => {
     if (user?.role) {
       setAvailableTours(getToursForRole(user.role as UserRole))
     }
-  }, [])
+  }, []) // Empty dependency array to run only once
 
   const startNextTour = () => {
     if (!currentUser) return

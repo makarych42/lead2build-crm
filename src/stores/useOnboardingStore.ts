@@ -161,7 +161,8 @@ export const useOnboardingStore = create<OnboardingStore>()(
       }),
       onRehydrateStorage: () => (state) => {
         if (state) {
-          state.isInitialized = true
+          // Don't automatically set isInitialized to true on rehydration
+          // Let the component handle initialization
         }
       }
     }

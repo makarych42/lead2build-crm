@@ -48,12 +48,17 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
   const [steps, setSteps] = useState<Step[]>([])
   const [currentTourId, setCurrentTourId] = useState<string | null>(null)
   const [isClient, setIsClient] = useState(false)
-
-  const currentUser = getCurrentUser()
+  const [currentUser, setCurrentUser] = useState<any>(null)
 
   // Проверяем, что мы на клиенте
   useEffect(() => {
     setIsClient(true)
+  }, [])
+
+  // Инициализируем пользователя только один раз
+  useEffect(() => {
+    const user = getCurrentUser()
+    setCurrentUser(user)
   }, [])
 
   // Инициализация онбординга при загрузке
@@ -86,8 +91,13 @@ export const OnboardingProvider: React.FC<OnboardingProviderProps> = ({ children
     const { status, type, index, action } = data
 
     if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
-      if (action === 'next' || action === 'prev') {
+      if (currentTourId) {
+        onboardingActions.markStepCompleted(currentTourId, index)
+      }
+      if (action === 'next') {
         onboardingActions.nextStep()
+      } else if (action === 'back') {
+        onboardingActions.prevStep()
       }
     }
 
