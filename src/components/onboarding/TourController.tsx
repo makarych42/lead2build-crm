@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Play, Square, SkipForward, RotateCcw, HelpCircle } from 'lucide-react'
 import { useOnboarding } from './OnboardingProvider'
 import { useOnboardingStore, useOnboardingState, useOnboardingProgress } from '@/stores/useOnboardingStore'
@@ -24,12 +24,18 @@ export const TourController: React.FC<TourControllerProps> = ({
   const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
-  const currentUser = getCurrentUser()
+  const [currentUser, setCurrentUser] = useState(getCurrentUser())
+  const [availableTours, setAvailableTours] = useState<any[]>([])
+
+  useEffect(() => {
+    const user = getCurrentUser()
+    setCurrentUser(user)
+    if (user?.role) {
+      setAvailableTours(getToursForRole(user.role as UserRole))
+    }
+  }, [])
 
   if (!currentUser) return null
-
-  const userRole = currentUser.role as UserRole
-  const availableTours = getToursForRole(userRole)
 
   const handleStartTour = () => {
     // Начинаем с первого незавершенного тура
@@ -190,13 +196,19 @@ export const useTourController = () => {
   const progress = useOnboardingProgress()
   const { getCurrentUser } = useUsersStore()
 
-  const currentUser = getCurrentUser()
+  const [currentUser, setCurrentUser] = useState(getCurrentUser())
+  const [availableTours, setAvailableTours] = useState<any[]>([])
+
+  useEffect(() => {
+    const user = getCurrentUser()
+    setCurrentUser(user)
+    if (user?.role) {
+      setAvailableTours(getToursForRole(user.role as UserRole))
+    }
+  }, [])
 
   const startNextTour = () => {
     if (!currentUser) return
-
-    const userRole = currentUser.role as UserRole
-    const availableTours = getToursForRole(userRole)
     
     const nextTour = availableTours.find(tour => 
       !progress.completedTours.includes(tour.id)
@@ -210,8 +222,6 @@ export const useTourController = () => {
   const getProgressInfo = () => {
     if (!currentUser) return { completed: 0, total: 0, percentage: 0 }
 
-    const userRole = currentUser.role as UserRole
-    const availableTours = getToursForRole(userRole)
     const completed = progress.completedTours.length
     const total = availableTours.length
     const percentage = total > 0 ? Math.round((completed / total) * 100) : 0
@@ -226,6 +236,10 @@ export const useTourController = () => {
     stopTour,
     skipTour,
     startNextTour,
-    progress: getProgressInfo()
+    progress: getProgressInfo(),
+    showWelcomeModal: onboardingState.showWelcomeModal,
+    showChecklist: onboardingState.showChecklist,
+    toggleChecklist: onboardingState.toggleChecklistAction,
+    resetOnboarding: onboardingState.resetOnboarding
   }
 }
