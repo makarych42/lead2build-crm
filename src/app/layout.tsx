@@ -4,6 +4,8 @@ import "./globals.css";
 import { NotificationProvider } from "@/components/NotificationService";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import GlobalErrorHandler from "@/components/GlobalErrorHandler";
+import PWAInstaller from "@/components/PWAInstaller";
+import MobileRedirect from "@/components/MobileRedirect";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -18,6 +20,19 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "Lead2Build CRM",
   description: "Construction Management CRM System",
+  manifest: "/manifest.json",
+  themeColor: "#3b82f6",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Lead2Build",
+  },
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({
@@ -30,6 +45,8 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
+        <PWAInstaller />
+        <MobileRedirect />
         <GlobalErrorHandler />
         <ErrorBoundary>
           <NotificationProvider>
